@@ -15,7 +15,7 @@ const ucpUrl = 'https://www.blauwwit.be/ucp.php?i=ucp_zebra&mode=foes';
                 value: $(el).val(),
                 name: $(el).text()
             });
-            $('ul#foelist').html(foeList.map(item => `<li data-value="${item.value}">${item.name}</li>`));
         });
+        $('ul#foelist').html(foeList.map(item => `<li data-value="${item.value}">${item.name}</li>`));
     });
 })();

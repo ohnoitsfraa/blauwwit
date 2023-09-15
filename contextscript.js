@@ -1,8 +1,15 @@
 'use strict';
 
-const hideFoes = async () => {
-    await chrome.storage.local.get('foeList', result => {
-        result.foeList && result.foeList.forEach(foe => {
+const ucpUrl = 'https://www.blauwwit.be/ucp.php?i=ucp_zebra&mode=foes';
+
+const hideFoes = () => {
+    $.get(ucpUrl, data => {
+        const $result = $(data);
+        $result.find('select[name="usernames[]"] option').each((index, el) => {
+            const foe = {
+                value: $(el).val(),
+                name: $(el).text()
+            };
             $(`blockquote cite a:contains(${foe.name})`).each((index, el) => {
                 const $div = $(el).parent().parent();
                 $div.parent().append(`
