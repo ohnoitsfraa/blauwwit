@@ -1,0 +1,33 @@
+html,
+body {
+    color: white;
+    margin: 0;
+    background: radial-gradient(ellipse at center, rgba(37, 99, 151, 1) 0%, rgba(37, 99, 151, 1) 15%, rgba(8, 49, 75, 1) 100%);
+}
+
+html {
+    padding: 1px;
+}
+
+body {
+    padding: 30px;
+    border: 1px solid white;
+}
+
+button {
+    border: 1px solid #31567B;
+    border-radius: 3px;
+    background: #011623;
+    color: #DDDDDD;
+    cursor: pointer;
+    padding: 5px 6px;
+    font-size: 1.1em;
+}
+
+button:hover {
+    border-color: white;
+}
+
+.ignored {
+    display: none !important;
+}

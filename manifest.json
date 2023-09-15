@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Blauwwit Negeer",
+  "description": "Blauwwit.be negeerlijst extensie",
+  "version": "1.0",
+  "action": {
+    "default_popup": "extension.html",
+    "default_icon": "extension.png"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://*.blauwwit.be/*"],
+      "js": ["jquery.js", "contextscript.js"]
+    }
+  ]
+}
