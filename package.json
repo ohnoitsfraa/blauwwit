@@ -10,6 +10,7 @@
     "test": "plasmo test"
   },
   "dependencies": {
+    "@plasmohq/storage": "^1.8.0",
     "plasmo": "0.83.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
@@ -27,6 +28,11 @@
     "host_permissions": [
       "https://blauwwit.be/*",
       "https://www.blauwwit.be/*"
-    ]
+    ],
+    "browser_specific_settings": {
+      "gecko": {
+        "id": "{f8de4886-04b7-48b6-9d5e-5a25ed01730d}"
+      }
+    }
   }
 }
