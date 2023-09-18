@@ -4,29 +4,26 @@ Dit is een extensie ontwikkeld via  [Plasmo](https://docs.plasmo.com/) voor gebr
 
 Features:
 
-- Toont de negeerlijst in het extensievenster
-- Verbergt citaten van gebruikers op je negeerlijst in het forum
+- Toont de gebruikers op je negeerlijst in het extensievenster
+- Verbergt citaten van gebruikers op je negeerlijst op dezelfde manier als dat voor gewone posts gebeurt
 
 **Chrome**
 
-https://chrome.google.com/webstore/detail/blauwwitbe/mncchmkepljefbngibhlpjbkpnacbcmg?hl=en&authuser=0
+[<img src="https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/UV4C4ybeBTsZt43U4xis.png"/>](https://chrome.google.com/webstore/detail/blauwwitbe/mncchmkepljefbngibhlpjbkpnacbcmg?hl=en&authuser=0)
 
 **Firefox**
 
-https://addons.mozilla.org/en-GB/firefox/addon/blauwwit-be/
+[<img src="https://extensionworkshop.com/assets/img/documentation/publish/get-the-addon-178x60px.dad84b42.png"/>](https://addons.mozilla.org/en-GB/firefox/addon/blauwwit-be)
 
 **Safari**
 
-Safari is niet voorzien, ook al is dit technisch mogelijk. Apple heeft het heel moeilijk gemaakt sinds enkele jaren om extensie buiten de App Store te distribueren.
-Aangezien hiervoor een betaalde Developer account nodig is, wordt Safari niet ondersteund.
+Safari is niet ondersteund. Apple heeft het heel moeilijk gemaakt sinds enkele jaren om extensie buiten de App Store te distribueren en bovendien moet ge een betaalde Developer account hebben.
 
 
 **iOS/Android**
 
-Om de extensie op mobile te gebruiken kan je voor iOS de browser [url= https://apps.apple.com/nl/app/orion-browser-by-kagi/id1484498200?l=en-GB ]Orion[/url] gebruiken.
-Op op Android kan je [url= https://play.google.com/store/apps/details?id=com.yandex.browser&hl=en]Yandex[/url] gebruiken. 
-
-Deze browsers laten Chrome extensions toe.
+Om de extensie op mobile te gebruiken kan je voor iOS de browser [Orion](https://apps.apple.com/nl/app/orion-browser-by-kagi/id1484498200?l=en-GB) gebruiken.
+Op op Android kan je [Yandex](https://play.google.com/store/apps/details?id=com.yandex.browser&hl=en) gebruiken. Deze browsers laten Chrome extensions toe.
 
 
 
