@@ -2,10 +2,13 @@
 
 Dit is een extensie ontwikkeld via  [Plasmo](https://docs.plasmo.com/) voor gebruik op het phpBB forum van [blauwwit.be](blauwwit.be)
 
-Features:
+## Features
 
-- Toont de gebruikers op je negeerlijst in het extensievenster
-- Verbergt citaten van gebruikers op je negeerlijst op dezelfde manier als dat voor gewone posts gebeurt
+- De gebruikers van je negeerlijst tonen in het extensievenster
+- Citaten van gebruikers op je negeerlijst worden verborgen net zoals bij posts.
+- Je kan nu ook topics verbergen en deze worden ook het extensievenster weergegeven. Deze topics worden opgeslgen in de sycn storage van je browser, deze zouden dus verborgen moeten zijn op andere plaatsen waar je dezelfde browser met dezelfde Chrome/Firefox account gebruikt.
+
+## Compatibiliteit
 
 **Chrome**
 
@@ -22,9 +25,12 @@ Safari is niet ondersteund. Apple heeft het heel moeilijk gemaakt sinds enkele j
 
 **iOS/Android**
 
-Om de extensie op mobile te gebruiken kan je voor iOS de browser [Orion](https://apps.apple.com/nl/app/orion-browser-by-kagi/id1484498200?l=en-GB) gebruiken.
-Op op Android kan je [Yandex](https://play.google.com/store/apps/details?id=com.yandex.browser&hl=en) gebruiken. Deze browsers laten Chrome extensions toe.
+Om de extensie op mobile te gebruiken kan je een browser installeren die met Chrome extensions om kan gaan:
+- Op iOS kan je de browser [Orion](https://apps.apple.com/nl/app/orion-browser-by-kagi/id1484498200?l=en-GB) gebruiken.\
+- Op Android kan je [Yandex](https://play.google.com/store/apps/details?id=com.yandex.browser&hl=en) gebruiken.
 
+## Screenshots
 
-
-<img src="./misc/screenshot.png">
+<img src="./screenshots/popup.png">
+<img src="./screenshots/post.png">
+<img src="./screenshots/topic.png">
