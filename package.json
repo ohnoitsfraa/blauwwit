@@ -1,7 +1,7 @@
 {
   "name": "blauwwit-extension",
   "displayName": "Blauwwit.be",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Blauwwit.be phpBB extension for the foe list",
   "author": "Fraa",
   "scripts": {
