@@ -88,7 +88,6 @@ const hideTopics = async () => {
 }
 
 const showTopics = async () => {
-    let hiddenTopics: any[] = await storage.get('hiddenTopics') || [];
     document.querySelectorAll('a.topictitle').forEach(link => {
         const dl = link.parentElement.parentElement.parentElement;
         dl.classList.remove('hide');
@@ -180,5 +179,6 @@ document.addEventListener(
 
 hideFoes();
 showHideTopicToggles();
+showTopics();
 hideTopics();
 watchStorage();
