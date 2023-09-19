@@ -1,10 +1,10 @@
-import type { PlasmoCSConfig } from "plasmo"
+import type { PlasmoCSConfig } from "plasmo";
 import { Storage } from '@plasmohq/storage';
 
 import extConfig from "./extConfig.json"
 
-const parser = new DOMParser()
-const storage = new Storage()
+const parser = new DOMParser();
+const storage = new Storage();
 
 export const config: PlasmoCSConfig = {
     matches: ["https://www.blauwwit.be/*"]
@@ -87,30 +87,43 @@ const hideTopics = async () => {
     }
 }
 
+const showTopics = async () => {
+    let hiddenTopics: any[] = await storage.get('hiddenTopics') || [];
+    document.querySelectorAll('a.topictitle').forEach(link => {
+        const dl = link.parentElement.parentElement.parentElement;
+        dl.classList.remove('hide');
+        dl.style.paddingTop = null;
+        dl.style.paddingBottom = null;
+        dl.removeAttribute('data-topic-value');
+        const ignoreMessage = dl.parentElement.querySelector('.ignore-message');
+        if (ignoreMessage) {
+            dl.parentElement.removeChild(ignoreMessage);
+        }
+    });
+}
+
 const showHideTopicToggles = () => {
     document.querySelectorAll('a.topictitle, .topic-title a').forEach((topicTitle) => {
+        if (topicTitle.classList.toString().indexOf('hide-enabled') > 0) {
+            return;
+        }
         const hideTopicAnchor = parser.parseFromString(
             `<svg class="hide-topic" fill="#888888" height="10px" width="10px" style="cursor:pointer;margin-left:5px;text-decoration:none;" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 65.518 65.518" xml:space="preserve"><g><path d="M32.759,0C14.696,0,0,14.695,0,32.759s14.695,32.759,32.759,32.759s32.759-14.695,32.759-32.759S50.822,0,32.759,0z M6,32.759C6,18.004,18.004,6,32.759,6c6.648,0,12.734,2.443,17.419,6.472L12.472,50.178C8.443,45.493,6,39.407,6,32.759z M32.759,59.518c-5.948,0-11.447-1.953-15.895-5.248l37.405-37.405c3.295,4.448,5.248,9.947,5.248,15.895 C59.518,47.514,47.514,59.518,32.759,59.518z"/></g></svg>`,
             "text/html"
         ).body.firstChild
-        insertAfter(topicTitle, hideTopicAnchor)
+        insertAfter(topicTitle, hideTopicAnchor);
+        topicTitle.classList.add('hide-enabled');
     })
 };
 
 const watchStorage = () => {
     storage.watch({
         'hiddenTopics': () => {
+            showTopics();
             hideTopics();
         }
     });
 }
-
-window.addEventListener("load", () => {
-    hideFoes()
-    showHideTopicToggles();
-    hideTopics();
-    watchStorage();
-});
 
 document.addEventListener(
     "click",
@@ -163,4 +176,9 @@ document.addEventListener(
         }
     },
     false
-)
+);
+
+hideFoes();
+showHideTopicToggles();
+hideTopics();
+watchStorage();
