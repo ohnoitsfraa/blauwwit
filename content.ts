@@ -1,7 +1,6 @@
 import type { PlasmoCSConfig } from "plasmo";
 import { Storage } from '@plasmohq/storage';
 import extConfig from "./extConfig.json"
-import { text } from "stream/consumers";
 
 const parser = new DOMParser();
 const storage = new Storage();
