@@ -1,7 +1,7 @@
 import type { PlasmoCSConfig } from "plasmo";
 import { Storage } from '@plasmohq/storage';
-
 import extConfig from "./extConfig.json"
+import { text } from "stream/consumers";
 
 const parser = new DOMParser();
 const storage = new Storage();
@@ -39,16 +39,16 @@ const hideFoes = async () => {
                 const div = link.parentElement.parentElement
                 const ignoreMessageElement = parser.parseFromString(
                     `<div class="ignore-message">
-                        <a href="./memberlist.php?mode=viewprofile&amp;u=${foe.value}" style="color: #888888;" class="username-coloured">${foe.name}</a>
+                        <a href="./memberlist.php?mode=viewprofile&amp;u=${foe.value}" class="username-coloured">${foe.name}</a>
                         <span>die momenteel op je negeerlijst staat, is geciteerd in dit bericht.</span>
-                        <a class="remove-ignore post" style="cursor: pointer;">Dit bericht weergeven</a>
+                        <a class="remove-ignore post">Dit bericht weergeven</a>
                     </div>
                     `,
                     "text/html"
                 )
                 div.parentElement.appendChild(ignoreMessageElement.body.firstChild)
                 const wrapperElement = parser.parseFromString(
-                    `<div class="ignored" style="display:none !important;"></div>`,
+                    `<div class="ignored"></div>`,
                     "text/html"
                 )
                 wrap(div, wrapperElement.body.firstChild)
@@ -73,8 +73,8 @@ const hideTopics = async () => {
                         dl.parentElement.appendChild(
                             parser.parseFromString(
                                 `<div class="ignore-message">
-                                    <span>Dit topic staat op je negeerlijst</span>
-                                    <a class="remove-ignore topic" style="cursor: pointer;">Dit topic verwijderen van je negeerlijst en weergeven</a>
+                                <span>Dit topic staat op je negeerlijst</span>
+                                <a class="remove-ignore topic">Topic weergeven</a>
                                 </div>`,
                                 'text/html').body.firstChild);
                     }
@@ -107,7 +107,7 @@ const showHideTopicToggles = () => {
             return;
         }
         const hideTopicAnchor = parser.parseFromString(
-            `<svg class="hide-topic" fill="#888888" height="10px" width="10px" style="cursor:pointer;margin-left:5px;text-decoration:none;" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 65.518 65.518" xml:space="preserve"><g><path d="M32.759,0C14.696,0,0,14.695,0,32.759s14.695,32.759,32.759,32.759s32.759-14.695,32.759-32.759S50.822,0,32.759,0z M6,32.759C6,18.004,18.004,6,32.759,6c6.648,0,12.734,2.443,17.419,6.472L12.472,50.178C8.443,45.493,6,39.407,6,32.759z M32.759,59.518c-5.948,0-11.447-1.953-15.895-5.248l37.405-37.405c3.295,4.448,5.248,9.947,5.248,15.895 C59.518,47.514,47.514,59.518,32.759,59.518z"/></g></svg>`,
+            `<i class="hide-topic icon fa-ban fa-fw"></i>`,
             "text/html"
         ).body.firstChild
         insertAfter(topicTitle, hideTopicAnchor);
@@ -122,6 +122,99 @@ const watchStorage = () => {
             hideTopics();
         }
     });
+}
+
+const showFoeToggles = () => {
+    document.querySelectorAll('.postprofile .username-coloured').forEach(username => {
+        const url = new URL(extConfig.ucpUrl);
+        const params = new URLSearchParams(url.search);
+        params.set('addUsername', username.textContent);
+        url.search = params.toString();
+        insertAfter(username, parser.parseFromString(
+            `<a href="${url.toString()}">
+                <i class="icon hide-user fa-ban fa-fw"></i>
+            </a>`,
+            'text/html'
+        ).body.firstChild);
+    });
+}
+
+const listenToUCPChange = () => {
+    if (window.location.href.indexOf(extConfig.ucpUrl) >= 0) {
+        const currentUrl = new URL(window.location.href);
+        const currentParams = new URLSearchParams(currentUrl.search);
+        const addUsername = currentParams.get('addUsername');
+        const removeUsername = currentParams.get('removeUsername');
+        const confirmForm = document.querySelector('form#confirm');
+        const confirmKey = currentParams.get('confirm_key');
+        if (addUsername && addUsername.length > 0) {
+            const textarea = document.querySelector('textarea[name="add"]');
+            textarea.textContent = addUsername;
+            const submit = (<HTMLButtonElement>document.querySelector('form#ucp input[type="submit"]'));
+            submit.click();
+        } else if (removeUsername && removeUsername.length > 0) {
+            document.querySelectorAll('select[name="usernames[]"] option').forEach(option => {
+                if (option.textContent == removeUsername) {
+                    (<HTMLSelectElement>option.parentElement).value = (<HTMLOptionElement>option).value;
+                    const submit = (<HTMLButtonElement>document.querySelector('form#ucp input[type="submit"]'));
+                    submit.click();
+                }
+            });
+        } else if (confirmForm) {
+            (<HTMLButtonElement>confirmForm.querySelector('input[type="submit"]')).click();
+        } else if (confirmKey) {
+            window.location.href = extConfig.ucpUrl;
+        }
+    }
+}
+
+const injectStyle = () => {
+    const styleElement = parser.parseFromString(
+        `
+        <style>
+            .ignored {
+                display:none !important;
+            }
+            .ignore-message {
+                color: #888888;
+            }
+
+            .hide-topic,
+            .remove-ignore {
+                cursor: pointer;
+            }
+
+            .hide-topic {
+                margin-left: 10px;
+                text-decoration: none;
+                font-size: 14px;
+                transition: 200ms transform ease-in-out;
+                color: #CCCCCC;
+            }
+
+            @media (max-width: 700px) {
+                .hide-topic {
+                    font-size: 16px;
+                }
+            }
+            
+            .hide-user:hover,
+            .hide-topic:hover {
+                transform: scale(1.4);
+            }
+
+            .remove-ignore {
+                margin-left: 5px;
+            }
+
+            .hide-user {
+                color: #CCCCCC;
+                margin-left: 10px;
+            }
+        </style>`,
+        'text/html'
+    ).head.firstChild;
+    document.head.append(styleElement);
 }
 
 document.addEventListener(
@@ -177,8 +270,11 @@ document.addEventListener(
     false
 );
 
+injectStyle();
 hideFoes();
 showHideTopicToggles();
+showFoeToggles();
 showTopics();
 hideTopics();
 watchStorage();
+listenToUCPChange();

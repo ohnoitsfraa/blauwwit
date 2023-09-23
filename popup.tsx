@@ -52,6 +52,14 @@ function IndexPopup() {
     });
   }
 
+  function getRemoveUserUrl(username: string): string {
+    const url = new URL(extConfig.ucpUrl);
+    const params = new URLSearchParams(url.search);
+    params.set('removeUsername', username);
+    url.search = params.toString();
+    return url.toString();
+  }
+
   useEffect(() => {
     getFoes();
     getHiddenTopics();
@@ -106,8 +114,28 @@ function IndexPopup() {
                 fontSize: 12,
                 listStyle: 'none',
                 marginTop: 5,
-                marginBottom: 5
-              }} data-value={foe.value} key={foe.value}>{foe.name}</li>
+                marginBottom: 5,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              }} data-value={foe.value} key={foe.value}>{foe.name}
+              <button style={{
+                  border: "1px solid #31567B",
+                  borderRadius: 3,
+                  background: "#011623",
+                  color: "#DDDDDD",
+                  cursor: "pointer",
+                  fontSize: "1em",
+                  marginTop: 10,
+                  marginBottom: 10,
+                  padding: 0,
+                  margin: 0,
+                  width: 20,
+                  height: 20,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }} id="removeUsername" onClick={() => goToHandleClick(getRemoveUserUrl(foe.name))}>x</button></li>
             })}
           </ul>
         </div>) : null

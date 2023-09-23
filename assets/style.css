@@ -1,0 +1,7 @@
+.hide-topic {
+    transition: 200ms transform ease-in-out;
+}
+
+.hide-topic:hover {
+    transform: scale(1.4);
+}
